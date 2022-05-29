@@ -15,6 +15,20 @@ class _CoffeeShowState extends State<CoffeeShow> {
   var size = 'Small';
   var sugarOptions = [0, 1, 2, 3];
   var sugar = 2;
+
+  double _getPrice() {
+    var price = widget.coffee.price;
+    if (size == 'Large') {
+      price += 50;
+    } else if (size == 'Medium') {
+      price += 25;
+    }
+    if (sugar == 3) {
+      price += 5;
+    }
+    return price;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -80,7 +94,7 @@ class _CoffeeShowState extends State<CoffeeShow> {
                             ),
                             children: [
                               TextSpan(
-                                text: '${widget.coffee.price}',
+                                text: '${_getPrice() * item}',
                                 style: TextStyle(
                                   fontSize: 40,
                                   fontWeight: FontWeight.bold,
@@ -167,28 +181,45 @@ class _CoffeeShowState extends State<CoffeeShow> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       direction: Axis.horizontal,
                       children: [
-                        Image(
-                          image: AssetImage('images/cup_medium.png'),
-                          height: 30,
-                          color:
-                              size == 'Small' ? Color(0xFF74533c) : Colors.grey,
+                        InkWell(
+                          onTap: () => setState(() {
+                            size = sizeOptions[0];
+                          }),
+                          child: Image(
+                            image: AssetImage('images/cup_medium.png'),
+                            height: 30,
+                            color: size == 'Small'
+                                ? Color(0xFF74533c)
+                                : Colors.grey,
+                          ),
                         ),
                         SizedBox(width: 10),
-                        Image(
-                          image: AssetImage('images/cup_medium.png'),
-                          height: 40,
-                          color: size == 'Medium'
-                              ? Color(0xFF74533c)
-                              : Colors.grey,
+                        InkWell(
+                          onTap: () => setState(() {
+                            size = sizeOptions[1];
+                          }),
+                          child: Image(
+                            image: AssetImage('images/cup_medium.png'),
+                            height: 40,
+                            color: size == 'Medium'
+                                ? Color(0xFF74533c)
+                                : Colors.grey,
+                          ),
                         ),
                         SizedBox(
                           width: 10,
                         ),
-                        Image(
-                          image: AssetImage('images/cup_medium.png'),
-                          height: 50,
-                          color:
-                              size == 'Large' ? Color(0xFF74533c) : Colors.grey,
+                        InkWell(
+                          onTap: () => setState(() {
+                            size = sizeOptions[2];
+                          }),
+                          child: Image(
+                            image: AssetImage('images/cup_medium.png'),
+                            height: 50,
+                            color: size == 'Large'
+                                ? Color(0xFF74533c)
+                                : Colors.grey,
+                          ),
                         ),
                       ],
                     ),
@@ -219,27 +250,47 @@ class _CoffeeShowState extends State<CoffeeShow> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       direction: Axis.horizontal,
                       children: [
-                        Image.asset(
-                          'images/zero.png',
-                          color: sugar == 0 ? Color(0xFF74533c) : Colors.grey,
+                        InkWell(
+                          onTap: (() => setState(() {
+                                sugar = sugarOptions[0];
+                              })),
+                          child: Image.asset(
+                            'images/zero.png',
+                            color: sugar == 0 ? Color(0xFF74533c) : Colors.grey,
+                          ),
                         ),
                         SizedBox(width: 20),
-                        Image(
-                          image: AssetImage('images/one.png'),
-                          color: sugar == 1 ? Color(0xFF74533c) : Colors.grey,
+                        InkWell(
+                          onTap: () => setState(() {
+                            sugar = sugarOptions[1];
+                          }),
+                          child: Image(
+                            image: AssetImage('images/one.png'),
+                            color: sugar == 1 ? Color(0xFF74533c) : Colors.grey,
+                          ),
                         ),
                         SizedBox(width: 20),
-                        Image(
-                          image: AssetImage('images/two.png'),
-                          height: 20,
-                          color: sugar == 2 ? Color(0xFF74533c) : Colors.grey,
+                        InkWell(
+                          onTap: () => setState(() {
+                            sugar = sugarOptions[2];
+                          }),
+                          child: Image(
+                            image: AssetImage('images/two.png'),
+                            height: 20,
+                            color: sugar == 2 ? Color(0xFF74533c) : Colors.grey,
+                          ),
                         ),
                         SizedBox(
                           width: 20,
                         ),
-                        Image(
-                          image: AssetImage('images/three.png'),
-                          color: sugar == 3 ? Color(0xFF74533c) : Colors.grey,
+                        InkWell(
+                          onTap: () => setState(() {
+                            sugar = sugarOptions[3];
+                          }),
+                          child: Image(
+                            image: AssetImage('images/three.png'),
+                            color: sugar == 3 ? Color(0xFF74533c) : Colors.grey,
+                          ),
                         ),
                       ],
                     ),
